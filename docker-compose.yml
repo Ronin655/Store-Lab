@@ -17,18 +17,7 @@ services:
       args:
         GITHUB_API_TOKEN: ${GITHUB_API_TOKEN}
     volumes:
-      - ./public:/src/public
-      - ./app:/src/app
-      - ./bootstrap/app.php:/src/bootstrap/app.php
-      - ./config:/src/config
-      - ./database:/src/database
-      - ./resources:/src/resources
-      - ./routes:/src/routes
-      - ./tests:/src/tests
-      - ./storage:/src/storage
-      - ./composer.json:/src/composer.json
-      - ./composer.lock:/src/composer.lock
-      - ./.env:/src/.env
+      - ./:/src/
     depends_on:
       - mysql
   mysql:
