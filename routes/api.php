@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\CreateTaskController;
 use App\Http\Controllers\GenerateIndicatorController;
+use App\Http\Controllers\IndexTaskController;
 use App\Http\Controllers\ShowIndicatorController;
+use App\Http\Controllers\ShowTaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('/indicators/{id}', [ShowIndicatorController::class, 'show']);
 Route::post('/indicators', [GenerateIndicatorController::class, 'generate']);
+
+Route::get('/tasks', [IndexTaskController::class, 'index']);
+Route::post('/tasks', [CreateTaskController::class, 'create']);
+Route::get('/tasks/{id}', [ShowTaskcontroller::class, 'showTasks']);
