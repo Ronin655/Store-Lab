@@ -6,12 +6,10 @@ use App\Models\Indicator;
 
 class ShowIndicatorController
 {
-    public function show(int $id)
+    public function __invoke(Indicator $indicator)
     {
-        $indicator = Indicator::query()->where('id', $id)->firstOrFail();
-
         return response()->json([
-            'value' => $indicator->value
+            'value' => $indicator
         ]);
     }
 }

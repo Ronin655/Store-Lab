@@ -6,13 +6,10 @@ use App\Models\Task;
 
 class ShowTaskController
 {
-    public function showTasks(int $id)
+    public function __invoke(Task $task)
     {
-        $task = Task::query()->where('id', $id)->firstOrFail();
-
         return response()->json([
             'task' => $task
        ]);
-
     }
 }

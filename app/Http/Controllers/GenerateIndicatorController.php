@@ -2,44 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ValueIndicator;
+use App\Http\Actions\GenerateIndicator;
 use App\Models\Indicator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
 class GenerateIndicatorController
 {
-    public function generate(Request $request)
+    /** @var GenerateIndicator */
+    private $generateIndicator;
+    /** @var ValueIndicator */
+    private $valueIndicator;
+
+    public function generate(Request $request): JsonResponse
     {
-        $type = $request->get('type');
-        $length = $request->get('length', 6);
-
-        $indicator = new Indicator();
-        $indicator->value = $this->getValue($length, $type);
-        $indicator->save();
-
-        return response()->json([
-            'id' => $indicator->id,
-        ]);
+        return $this->generateIndicator->generate($request);
     }
 
-    /**
-     * @param $length
-     * @param $type
-     * @return int|string
-     */
-    public function getValue($length, $type)
+    public function getValue(int $length, ?string $type): string
     {
-        if ($type == 'string') {
-            return  Str::random($length);
-        }
-
-        if ($type == 'uuid') {
-            return Str::limit(Str::uuid(), $length, '');
-        }
-        return rand(
-            pow(10, $length - 1),
-            pow(10, $length) - 1
-        );
+        return $this->getValue($length, $type);
     }
-
 }
