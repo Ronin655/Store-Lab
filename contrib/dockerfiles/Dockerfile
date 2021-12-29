@@ -38,8 +38,7 @@ ARG GITHUB_API_TOKEN
 ENV PATH="$PATH:/src/vendor/bin"
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 COPY composer.* ./
-RUN composer config -g github-oauth.github.com $GITHUB_API_TOKEN && \
-    composer install --no-scripts --no-autoloader --no-interaction --no-dev
+RUN composer install --no-scripts --no-autoloader --no-interaction --no-dev
 
 # Copy existing application directory contents
 COPY . /src
