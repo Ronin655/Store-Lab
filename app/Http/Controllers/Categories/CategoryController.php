@@ -1,17 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Categories;
 
-use App\Actions\StoreCategory;
-use App\Actions\UpdateCategory;
-use App\Http\Requests\CategoryRequest;
-use App\Http\Resources\CategoryCollectionResource;
-use App\Http\Resources\CategoryResource;
-use App\Models\Category;
+use App\Http\Requests\Categories\CategoryRequest;
+use App\Http\Resources\Categories\CategoryCollectionResource;
+use App\Http\Resources\Categories\CategoryResource;
+use App\Models\Categories\Category;
+use App\Services\CategoryService;
 use Illuminate\Http\Response;
+use function response;
 
 class CategoryController
 {
+    public CategoryService $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function index(): CategoryCollectionResource
     {
         $categories = Category::query()
@@ -23,21 +30,21 @@ class CategoryController
 
     public function store(CategoryRequest $request): CategoryResource
     {
-        $category = (new StoreCategory())->store($request);
+        $category = $this->categoryService->store($request);
 
         return new CategoryResource($category);
     }
 
     public function update(CategoryRequest $request, Category $category): CategoryResource
     {
-        $category = (new UpdateCategory())->update($request, $category);
+        $category = $this->categoryService->update($request, $category);
 
         return new CategoryResource($category->load('products'));
     }
 
     public function destroy(Category $category): Response
     {
-        $category->delete();
+        $this->categoryService->delete($category);
 
         return response()->noContent();
     }

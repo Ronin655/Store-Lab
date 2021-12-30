@@ -1,18 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Products;
 
-use App\Actions\StoreProduct;
-use App\Actions\UpdateProduct;
-use App\Http\Requests\ProductRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Products\ProductRequest;
 use App\Http\Requests\UpdateProductRequest;
-use App\Http\Resources\ProductCollectionResource;
-use App\Http\Resources\ProductResource;
-use App\Models\Product;
-use \Illuminate\Http\Response;
+use App\Http\Resources\Products\ProductCollectionResource;
+use App\Http\Resources\Products\ProductResource;
+use App\Models\Products\Product;
+use App\Services\ProductService;
+use Illuminate\Http\Response;
+use function response;
 
 class ProductController extends Controller
 {
+    public ProductService $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
     public function index(): ProductCollectionResource
     {
         $products = Product::query()
@@ -29,22 +37,21 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): ProductResource
     {
-        $product = (new StoreProduct())->store($request);
+        $product = $this->productService->create($request);
 
         return new ProductResource($product);
-
     }
 
     public function update(UpdateProductRequest $request, Product $product): ProductResource
     {
-        $product = (new UpdateProduct())->update($request, $product);
+        $product = $this->productService->update($request, $product);
 
         return new ProductResource($product->load('category'));
     }
 
     public function destroy(Product $product): Response
     {
-        $product->delete();
+        $this->productService->delete($product);
 
         return response()->noContent();
     }

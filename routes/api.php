@@ -1,15 +1,10 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\CreateLessonController;
-use App\Http\Controllers\CreateTaskController;
-use App\Http\Controllers\GenerateIndicatorController;
-use App\Http\Controllers\IndexTaskController;
 use App\Http\Controllers\IndicatorController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ShowIndicatorController;
+use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\ShowLessonController;
-use App\Http\Controllers\ShowTaskController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

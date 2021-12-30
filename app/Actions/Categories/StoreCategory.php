@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Categories;
 
-use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
+use App\Http\Requests\Categories\CategoryRequest;
+use App\Models\Categories\Category;
 
 class StoreCategory
 {

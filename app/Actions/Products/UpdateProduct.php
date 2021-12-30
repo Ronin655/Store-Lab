@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Actions;
+namespace App\Actions\Products;
 
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Product;
+use App\Models\Products\Product;
 use Illuminate\Support\Arr;
 
 class UpdateProduct

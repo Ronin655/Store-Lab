@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Products;
 
-use App\Models\Product;
+use App\Http\Resources\Categories\CategoryResource;
+use App\Models\Products\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
