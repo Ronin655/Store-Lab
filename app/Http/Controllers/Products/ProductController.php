@@ -24,7 +24,7 @@ class ProductController extends Controller
     public function index(): ProductCollectionResource
     {
         $products = Product::query()
-            ->with('category')
+            ->with(['category', 'brand'])
             ->get();
 
         return new ProductCollectionResource($products);
@@ -32,7 +32,8 @@ class ProductController extends Controller
 
     public function show(Product $product): ProductResource
     {
-        return new ProductResource($product->load('category'));
+        return new ProductResource($product->load(['category', 'brand']));
+
     }
 
     public function store(ProductRequest $request): ProductResource
@@ -46,7 +47,7 @@ class ProductController extends Controller
     {
         $product = $this->productService->update($request, $product);
 
-        return new ProductResource($product->load('category'));
+        return new ProductResource($product->load(['category', 'brand']));
     }
 
     public function destroy(Product $product): Response

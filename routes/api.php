@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Brand\BrandController;
 use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\CreateLessonController;
 use App\Http\Controllers\IndicatorController;
@@ -30,6 +31,8 @@ Route::apiResource('/indicators', IndicatorController::class);
 Route::apiResource('/tasks', TaskController::class);
 
 Route::apiResource('categories', CategoryController::class)
+    ->only('index', 'store', 'update', 'destroy');
+Route::apiResource('brands', BrandController::class)
     ->only('index', 'store', 'update', 'destroy');
 
 Route::apiResource('products', ProductController::class);

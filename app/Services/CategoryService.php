@@ -17,7 +17,7 @@ class CategoryService
 
     public function store(CategoryRequest $request)
     {
-        return Category::create(['name'=>$request->get('name')]);
+        return Category::create(['name' => $request->get('name')]);
     }
 
     public function delete(Category $category)
