@@ -24,11 +24,21 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('registration', 'AuthController@registration');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+});
 //Route::get('/indicators/{id}', [ShowIndicatorController::class, 'show']);
 //Route::post('/indicators', [GenerateIndicatorController::class, 'generate']);
 
-Route::apiResource('/indicators', IndicatorController::class);
-Route::apiResource('/tasks', TaskController::class);
+//Route::apiResource('/indicators', IndicatorController::class);
+//Route::apiResource('/tasks', TaskController::class);
 
 Route::apiResource('categories', CategoryController::class)
     ->only('index', 'store', 'update', 'destroy');
