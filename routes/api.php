@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Brand\BrandController;
 use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\CreateLessonController;
@@ -28,11 +29,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group([
     'prefix' => 'auth'
 ], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('registration', 'AuthController@registration');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('registration', [AuthController::class, 'registration']);
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
+    Route::post('me', [AuthController::class, 'me']);
 });
 //Route::get('/indicators/{id}', [ShowIndicatorController::class, 'show']);
 //Route::post('/indicators', [GenerateIndicatorController::class, 'generate']);

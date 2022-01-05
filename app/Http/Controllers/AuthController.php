@@ -2,64 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Actions\Users\RegisterUserAction;
+use App\DTO\JwtToken;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegistrationRequest;
+use App\Http\Resources\JwtTokenResource;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'registration']]);
     }
 
-    public function login()
+    /**
+     * @return JwtTokenResource|JsonResponse
+     */
+    public function login(LoginRequest $request): LoginRequest
     {
-        $credentials = request(['email', 'password']);
+        $credentials = $request->only(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error', 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return new JwtTokenResource(new JwtToken($token));
     }
 
-    public function registration()
+    public function registration(RegistrationRequest $request, RegisterUserAction $action): JsonResponse
     {
-        $name = request('name');
-        $email = request('email');
-        $password = request('password');
+        $action->execute($request);
 
-        $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = Hash::make($password);
-        $user->save();
         return response()->json(['message' => 'Successfully registration!']);
     }
 
-    public function me()
+    public function me(): JsonResponse
     {
         return response()->json(auth()->user());
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth()->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function refresh()
+    public function refresh(): JwtTokenResource
     {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-    public function respondWithToken($token)
-    {
-        return response()->json([
-            'acces_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        return new JwtTokenResource(new JwtToken(auth()->refresh()));
     }
 }
