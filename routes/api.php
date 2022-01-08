@@ -5,6 +5,7 @@ use App\Http\Controllers\Brand\BrandController;
 use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\CreateLessonController;
 use App\Http\Controllers\IndicatorController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Products\ProductController;
 use App\Http\Controllers\ShowLessonController;
 use App\Http\Controllers\TaskController;
@@ -33,8 +34,11 @@ Route::group([
     Route::post('registration', [AuthController::class, 'registration']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
+    Route::post('profile', [AuthController::class, 'profile']);
 });
+
+Route::post('orders', [OrderController::class, 'store']);
+
 //Route::get('/indicators/{id}', [ShowIndicatorController::class, 'show']);
 //Route::post('/indicators', [GenerateIndicatorController::class, 'generate']);
 

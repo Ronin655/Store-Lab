@@ -7,6 +7,7 @@ use App\DTO\JwtToken;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Resources\JwtTokenResource;
+use App\Http\Resources\ProfileResource;
 use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
@@ -19,7 +20,7 @@ class AuthController extends Controller
     /**
      * @return JwtTokenResource|JsonResponse
      */
-    public function login(LoginRequest $request): LoginRequest
+    public function login(LoginRequest $request): JwtTokenResource
     {
         $credentials = $request->only(['email', 'password']);
 
@@ -37,9 +38,9 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully registration!']);
     }
 
-    public function me(): JsonResponse
+    public function profile(): ProfileResource
     {
-        return response()->json(auth()->user());
+        return new ProfileResource(auth()->user());
     }
 
     public function logout(): JsonResponse
