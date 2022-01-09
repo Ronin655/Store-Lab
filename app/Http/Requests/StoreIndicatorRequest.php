@@ -11,7 +11,7 @@ class StoreIndicatorRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'type' => ['required', 'string', 'uuid', 'int'],
