@@ -12,7 +12,7 @@ use function response;
 
 class CategoryController
 {
-    public CategoryService $categoryService;
+    private CategoryService $categoryService;
 
     public function __construct(CategoryService $categoryService)
     {

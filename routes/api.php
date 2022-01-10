@@ -37,7 +37,8 @@ Route::group([
     Route::post('profile', [AuthController::class, 'profile']);
 });
 
-Route::post('orders', [OrderController::class, 'store']);
+Route::post('orders', [OrderController::class, 'store'])
+    ->middleware(['auth:api']);
 
 //Route::get('/indicators/{id}', [ShowIndicatorController::class, 'show']);
 //Route::post('/indicators', [GenerateIndicatorController::class, 'generate']);

@@ -7,11 +7,11 @@ use App\Http\Resources\Brands\BrandCollectionResource;
 use App\Http\Resources\Brands\BrandResource;
 use App\Models\Brands\Brand;
 use App\Services\BrandService;
-use http\Env\Response;
+use Illuminate\Http\Response;
 
 class BrandController
 {
-    public BrandService $brandService;
+    private BrandService $brandService;
 
     public function __construct(BrandService $brandService)
     {
@@ -41,7 +41,7 @@ class BrandController
         return new BrandResource($brand);
     }
 
-    public function destroy(Brand $brand): \Illuminate\Http\Response
+    public function destroy(Brand $brand): Response
     {
         $this->brandService->delete($brand);
 

@@ -3,37 +3,34 @@
 namespace App\Services;
 
 use App\Http\Requests\OrderStoreRequest;
-use App\Http\Resources\Orders\OrderResource;
 use App\Models\Order;
-use App\Models\Products\Product;
-use Illuminate\Support\Arr;
+use App\Models\User;
 
 class OrderService
 {
-    public function store(OrderStoreRequest $request, Order $order)
+    private OrderItemService $orderItemService;
+
+    public function __construct(OrderItemService $orderItemService)
     {
-        $user = auth()->user();
+        $this->orderItemService = $orderItemService;
+    }
+
+    public function store(OrderStoreRequest $request, User $user): Order
+    {
         $order = new Order();
         $order->user()->associate($user);
-        $order->fill(Arr::except($request->validated(), ['product_id', 'order_id']));
-        $order->orderItems()->associate($request->get('product_id'));
-        $order->price = 0;
-        $order->status = 0;
+        $order->fill([
+            'price' => 0,
+            'status' => 0,
+        ]);
         $order->save();
 
-        $totalPrice = 0;
-        foreach ($request->order_items as $order_item) {
-            $product = Product::find($order_item['product_id']);
-            $totalPrice = $totalPrice + $product->price * ($order_item['quantity'] ?? 1);
-
-            $orderitem = new OrderItem();
-            $orderitem->order()->associate($order);
-            $orderitem->product()->associate($product);
-            $orderitem->quantity = $order_item['quantity'] ?? 1;
-            $orderitem->save();
+        foreach ($request->order_items as $orderItem) {
+            $this->orderItemService->store($orderItem, $order);
         }
-            $order->price = $totalPrice;
-            $order->save();
+
+        $order->price = $order->orderItems->sum('price');
+        $order->save();
 
         return $order;
     }

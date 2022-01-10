@@ -31,6 +31,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Product wherePrice($value)
  * @method static Builder|Product whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read Brand $brand
+ * @property int|null $brand_id
+ * @method static Builder|Product whereBrandId($value)
  */
 class Product extends Model
 {
