@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Order;
-use App\Models\OrderItem;
+use App\Models\Orders\Order;
+use App\Models\Orders\OrderItem;
 use App\Models\Products\Product;
 
 class OrderItemService
@@ -21,6 +21,13 @@ class OrderItemService
         $orderItem->save();
 
         return $orderItem;
+    }
+
+    public function destroy(OrderItem $orderItem)
+    {
+        $this->orderItem->delete($orderItem);
+
+        return response()->noContent();
     }
 
 }

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Http\Requests\OrderStoreRequest;
-use App\Models\Order;
+use App\Http\Requests\Orders\OrderStoreRequest;
+use App\Models\Orders\Order;
 use App\Models\User;
 
 class OrderService

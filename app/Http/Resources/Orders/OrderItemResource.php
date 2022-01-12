@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Orders;
 
 use App\Http\Resources\Products\ProductResource;
-use App\Models\OrderItem;
+use App\Models\Orders\OrderItem;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**

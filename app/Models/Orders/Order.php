@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Orders;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * App\Models\Order
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\OrderItem[] $orderItems
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Orders\OrderItem[] $orderItems
  * @property-read int|null $order_items_count
  * @property-read \App\Models\User $user
  * @method static Builder|Order newModelQuery()

@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Orders;
 
-use App\Http\Requests\OrderStoreRequest;
+use App\Http\Requests\Orders\OrderStoreRequest;
 use App\Http\Resources\Orders\OrderResource;
-use App\Models\Order;
+use App\Models\Orders\Order;
+use App\Models\Orders\OrderItem;
 use App\Models\User;
 use App\Services\OrderService;
-use Illuminate\Support\Facades\Auth;
+use http\Env\Response;
+use function auth;
 
 class OrderController
 {
