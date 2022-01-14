@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\Products\ProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\Products\UpdateProductRequest;
 use App\Models\Products\Product;
 use Illuminate\Support\Arr;
 

@@ -40,7 +40,7 @@ Route::post('orders', [OrderController::class, 'store'])
     ->middleware(['auth:api']);
 
 Route::apiResource('orders.order-items', OrderItemController::class)
-    ->only(['store', 'destroy'])
+    ->only(['store', 'update', 'destroy'])
     ->shallow();
 
 Route::apiResource('categories', CategoryController::class)

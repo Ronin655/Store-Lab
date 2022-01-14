@@ -4,17 +4,19 @@ namespace App\Models\Orders;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Order
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Orders\OrderItem[] $orderItems
+ * @property-read Collection|OrderItem[] $orderItems
  * @property-read int|null $order_items_count
- * @property-read \App\Models\User $user
+ * @property-read User $user
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
  * @method static Builder|Order query()
@@ -23,8 +25,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property float $price
  * @property int $status
  * @property int $user_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @method static Builder|Order whereCreatedAt($value)
  * @method static Builder|Order whereId($value)
  * @method static Builder|Order wherePrice($value)

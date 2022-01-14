@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Orders\OrderStoreRequest;
+use App\DTO\OrderData;
 use App\Models\Orders\Order;
 use App\Models\User;
 
@@ -15,7 +15,7 @@ class OrderService
         $this->orderItemService = $orderItemService;
     }
 
-    public function store(OrderStoreRequest $request, User $user): Order
+    public function store(OrderData $data, User $user): Order
     {
         $order = new Order();
         $order->user()->associate($user);
@@ -25,7 +25,12 @@ class OrderService
         ]);
         $order->save();
 
-        foreach ($request->order_items as $orderItem) {
+        return $this->addOrderItems($data, $order);
+    }
+
+    public function addOrderItems(OrderData $data, Order $order): Order
+    {
+        foreach ($data->orderItems as $orderItem) {
             $this->orderItemService->store($orderItem, $order);
         }
 

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Orders;
 
+use App\DTO\OrderData;
 use App\Http\Requests\Orders\OrderStoreRequest;
 use App\Http\Resources\Orders\OrderResource;
-use App\Models\Orders\Order;
-use App\Models\Orders\OrderItem;
 use App\Models\User;
 use App\Services\OrderService;
-use http\Env\Response;
 use function auth;
 
 class OrderController
@@ -24,7 +22,7 @@ class OrderController
     {
         /** @var User $user */
         $user = auth()->user();
-        $order = $this->orderService->store($request, $user);
+        $order = $this->orderService->store(new OrderData($request->order_items), $user);
 
         return new OrderResource($order->load('orderItems.product'));
     }
