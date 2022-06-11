@@ -20,7 +20,7 @@ class AuthController extends Controller
     /**
      * @return JwtTokenResource|JsonResponse
      */
-    public function login(LoginRequest $request): JwtTokenResource
+    public function login(LoginRequest $request): JwtTokenResource|JsonResponse
     {
         $credentials = $request->only(['email', 'password']);
 
