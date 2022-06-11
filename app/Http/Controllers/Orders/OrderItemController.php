@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Orders;
 
 use App\DTO\OrderData;
-use App\Http\Requests\Orders\OrderItemRequest;
 use App\Http\Requests\Orders\OrderStoreRequest;
 use App\Http\Resources\Orders\OrderResource;
 use App\Models\Orders\Order;
+use App\Models\Orders\OrderItem;
 use App\Services\OrderItemService;
 use App\Services\OrderService;
 
@@ -26,13 +26,17 @@ class OrderItemController
         return new OrderResource($order);
     }
 
-    public function update(OrderItemRequest $request, OrderItemService $orderItemService)
+    public function update(OrderStoreRequest $request, OrderItemService $orderItemService)
     {
+        $orderItemService->update($request, $orderItemService);
 
+        return $orderItemService;
     }
 
-    public function destroy()
+    public function destroy(OrderItem $orderItem)
     {
+        $this->orderService->delete($orderItem);
 
+        return response()->noContent();
     }
 }

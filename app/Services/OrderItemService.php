@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\OrderItemData;
 use App\Http\Requests\Orders\OrderItemRequest;
+use App\Http\Requests\Orders\OrderStoreRequest;
 use App\Models\Orders\Order;
 use App\Models\Orders\OrderItem;
 use App\Models\Products\Product;
@@ -24,15 +25,15 @@ class OrderItemService
         return $orderItem;
     }
 
-    public function update(OrderItemRequest $request): Order
+    public function update(OrderItemRequest $request, OrderItem $orderItem)
     {
+        $orderItem->update('quantity')->$request('quantity');
 
+        return $orderItem;
     }
 
     public function destroy(OrderItem $orderItem)
     {
         $orderItem->delete();
-
-        return response()->noContent();
     }
 }
