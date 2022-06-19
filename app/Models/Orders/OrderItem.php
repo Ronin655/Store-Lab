@@ -36,6 +36,7 @@ class OrderItem extends Model
 
     protected $fillable = [
         'quantity',
+        'price',
     ];
 
     public function order(): BelongsTo
