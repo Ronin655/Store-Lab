@@ -16,10 +16,11 @@ class OrderItemController
     {
         $orderItem = $orderItemService
             ->store(
-                new OrderItemData(),
-                $request->get('product_id'),
-                $request->get('quantity')
-
+                new OrderItemData(
+                    $request->get('product_id'),
+                    $request->get('quantity'),
+                ),
+                $order,
             );
 
         return new OrderItemResource($orderItem);
