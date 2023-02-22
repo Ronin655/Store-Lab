@@ -3,9 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Brand\BrandController;
 use App\Http\Controllers\Categories\CategoryController;
+use App\Http\Controllers\DiscountedController;
 use App\Http\Controllers\Orders\OrderController;
 use App\Http\Controllers\Orders\OrderItemController;
 use App\Http\Controllers\Products\ProductController;
+use App\Models\Products\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,5 +50,12 @@ Route::apiResource('brands', BrandController::class)
     ->only('index', 'store', 'update', 'destroy');
 
 Route::apiResource('products', ProductController::class);
+
+Route::apiResource('discounteds', DiscountedController::class)
+    ->only('index', 'store', 'update', 'destroy');
+
+Route::bind('products', function ($name){
+    return Product::where('name', $name)->firstOrFail();
+});
 
 

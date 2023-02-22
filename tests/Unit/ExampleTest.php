@@ -27,7 +27,7 @@ class ExampleTest extends TestCase
         User::factory()->create([
             'email' => $email = 'tests@mail.ru',
             'name' => 'dillinger',
-            'password'=> bcrypt($pass = 'Dillinger655'),
+            'password' => bcrypt($pass = 'Dillinger655'),
         ]);
 
         $response = $this->postJson('/api/auth/login', [
@@ -42,10 +42,26 @@ class ExampleTest extends TestCase
         $response = $this->postJson('/api/auth/login', [
             'email' => 'tests@mail.ru',
             'name' => 'dillinger',
-            'password'=> bcrypt('Dillinger655'),
+            'password' => bcrypt('Dillinger655'),
         ]);
         $response->assertUnauthorized();
     }
 
+    public function testBrands()
+    {
+        $response = $this->postJson('/api/brands',
+            [
+                'name' => 'samsung',
+        ]);
+        $response->assertStatus(201);
+
+        $response = $this->get('/api/brands',
+        [
+            'name' => 'samsung'
+        ]);
+
+        $response->assertStatus(200);
+    }
+
 }
-    
+
